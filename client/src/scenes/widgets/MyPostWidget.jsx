@@ -24,6 +24,9 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -53,12 +56,34 @@ const MyPostWidget = ({ picturePath }) => {
     });
     const posts = await response.json();
     dispatch(setPosts({ posts }));
+    toast.success('Posted Successfully!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      }) ;
     setImage(null);
     setPost("");
   };
 
   return (
     <WidgetWrapper>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
         <InputBase
